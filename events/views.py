@@ -6,6 +6,7 @@ from events.serializers import LoginSerializer, SignUpSerializer, EventSerialize
 from events.models import Events
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+from django.utils import timezone
 
 # Create your views here.
 class RegisterView(APIView):
@@ -57,9 +58,10 @@ class EventView(APIView):
         responses={200: EventSerializer(many=True)}
     )
     def get(self, request):
-        """List all events."""
-        events = Events.objects.all()
-        serializer = EventSerializer(events, many=True, )
+        """List all upcoming (future) events."""
+        now = timezone.now()
+        events = Events.objects.filter(start_time__gt=now)
+        serializer = EventSerializer(events, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class RegisterAttendeeView(APIView):
@@ -71,7 +73,7 @@ class RegisterAttendeeView(APIView):
     )
     def post(self, request, event_id):
         try:
-            event = Events.objects.get(id=event_id, is_active=True)
+            event = Events.objects.get(id=event_id)
         except Events.DoesNotExist:
             return Response({"error": "Event not found."}, status=404)
 
@@ -89,7 +91,7 @@ class RetrieveAttendeeView(APIView):
     )
     def get(self, request, event_id):
         try:
-            event = Events.objects.get(id=event_id, is_active=True)
+            event = Events.objects.get(id=event_id)
         except Events.DoesNotExist:
             return Response({"error": "Event not found."}, status=404)
 

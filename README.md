@@ -85,7 +85,7 @@ curl -X POST http://127.0.0.1:8000/login/ -H "Content-Type: application/json" -d
 
 ### Create Event
 
-curl -X POST http://127.0.0.1:8000/events/ -H "Authorization: Token <your_token>" -H "Content-Type: application/json" -d '{"event_name": "Conference", "location": "Chennai", "start_time": "2025-06-10T10:00:00", "end_time": "2025-06-10T12:00:00", "max_capacity": 100, "is_active": true}'
+curl -X POST http://127.0.0.1:8000/events/ -H "Authorization: Token <your_token>" -H "Content-Type: application/json" -d '{"event_name": "Conference", "location": "Chennai", "start_time": "2025-06-10T10:00:00", "end_time": "2025-06-10T12:00:00", "max_capacity": 100}'
 
 
 ### List Events

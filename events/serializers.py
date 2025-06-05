@@ -36,7 +36,7 @@ class LoginSerializer(serializers.Serializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Events
-        fields = ['id', 'event_name', 'location', 'start_time', 'end_time', 'max_capacity', 'is_active']
+        fields = ['id', 'event_name', 'location', 'start_time', 'end_time', 'max_capacity']
         
         def validate(self, data):
             if data['start_time'] >= data['end_time']:

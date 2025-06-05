@@ -19,7 +19,6 @@ class ViewTests(APITestCase):
             start_time=timezone.now() + timezone.timedelta(days=1),
             end_time=timezone.now() + timezone.timedelta(days=2),
             max_capacity=2,
-            is_active=True
         )
         self.attendee_data = {
             'attentee_name': 'John Doe',
@@ -48,8 +47,7 @@ class ViewTests(APITestCase):
             'location': 'Another Location',
             'start_time': (timezone.now() + timezone.timedelta(days=3)).astimezone(pytz.timezone('Asia/Kolkata')).isoformat(),
             'end_time': (timezone.now() + timezone.timedelta(days=4)).astimezone(pytz.timezone('Asia/Kolkata')).isoformat(),
-            'max_capacity': 10,
-            'is_active': True
+            'max_capacity': 10
         }
         response = self.client.post(url, event_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
