@@ -38,12 +38,12 @@ class EventSerializer(serializers.ModelSerializer):
         model = Events
         fields = ['id', 'event_name', 'location', 'start_time', 'end_time', 'max_capacity']
         
-        def validate(self, data):
-            if data['start_time'] >= data['end_time']:
-                raise serializers.ValidationError("End time must be after start time")
-            if data['max_capacity'] <= 0:
-                raise serializers.ValidationError("Max capacity must be greater than zero")
-            return data
+    def validate(self, data):
+        if data['start_time'] >= data['end_time']:
+            raise serializers.ValidationError("End time must be after start time")
+        if data['max_capacity'] <= 0:
+            raise serializers.ValidationError("Max capacity must be greater than zero")
+        return data
     
 class AttendeeSerializer(serializers.ModelSerializer):
     class Meta:
